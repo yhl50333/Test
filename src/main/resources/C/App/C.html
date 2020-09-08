@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Ajax方式的异步请求测试 -->
+<fieldset> <!-- 分组设置 -->
+    <legend>异步请求</legend>
+    <button onclick="doc()">Get Request</button>
+    <span id="cs">loading data ....</span>
+</fieldset>
+</body>
+
+<script>
+    function doc() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            //console.log(xhr.readState);
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+                document.getElementById("cs").innerHTML = xhr.responseText;
+            }
+        };
+        xhr.open("GET", "http://localhost:8080/s", true);//true表示异步(底层会启动线程与服务端通讯)
+        //4.发送请求
+        xhr.send();
+    }
+</script>
+</html>
